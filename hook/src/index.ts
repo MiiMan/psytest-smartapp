@@ -25,9 +25,9 @@ function* script(r: SberRequest) {
   };
 
   function updateState(ans: any) {
-    state.e += Number(typeof questions[state.id].options[0].koe.e == 'undefined'? '0' : questions[state.id].options[0].koe.e);
-    state.l += Number(typeof questions[state.id].options[0].koe.l == 'undefined'? '0' : questions[state.id].options[0].koe.l);
-    state.n += Number(typeof questions[state.id].options[0].koe.n == 'undefined'? '0' : questions[state.id].options[0].koe.n);
+    state.e += Number(typeof questions[state.id].options[ans].koe.e == 'undefined'? '0' : questions[state.id].options[ans].koe.e);
+    state.l += Number(typeof questions[state.id].options[ans].koe.l == 'undefined'? '0' : questions[state.id].options[ans].koe.l);
+    state.n += Number(typeof questions[state.id].options[ans].koe.n == 'undefined'? '0' : questions[state.id].options[ans].koe.n);
 
     state.id += 1;
     state.question = questions[state.id]
@@ -36,6 +36,7 @@ function* script(r: SberRequest) {
 
   function startState() {
     state.intro = true;
+    state.question = questions[0]
     rsp.data = state;
   }
 
