@@ -70,20 +70,23 @@ function* script(r: SberRequest) {
       rsp.data = {'type': 'close_app'}
     }
 
+
     else if (r.nlu.lemmaIntersection(['да', 'согласен', 'да да']) || ['да', 'согласен', 'да да'].includes(r.msg.toLowerCase())) {
       updateState(0);
-      yield rsp;
     }
 
     else if (r.nlu.lemmaIntersection(['нет', 'не согласен', 'сомневаюсь']) || ['нет', 'не согласен', 'сомневаюсь'].includes(r.msg.toLowerCase())) {
       updateState(1);
-      yield rsp;
     }
 
     else if (r.nlu.lemmaIntersection(['возможно', 'не знаю']) || ['возможно', 'не знаю'].includes(r.msg.toLowerCase())) {
       updateState(2);
-      yield rsp;
     }
+
+    else if (state.id == 0 && (r.nlu.lemmaIntersection(['начать', 'старт', 'начинай']) || ['начать', 'старт', 'начинай'].includes(r.msg.toLowerCase()))) {
+      updateState(0);
+    }
+    yield rsp;
   }
   rsp.msg = 'Поздравляю! Вы знаете все места Москвы!'
   rsp.msgJ = 'Поздравляю! Ты знаешь все места Москвы!'

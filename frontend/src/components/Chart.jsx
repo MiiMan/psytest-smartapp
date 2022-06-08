@@ -22,11 +22,11 @@ export const PsyTestChart = (n, e) => {
     const data = [{ neuroticism: n, stability: e }];
     return (
         <ScatterChart
-            width={500}
+            width={600}
             height={400}
             data={data}
             fill="white"
-            margin={{top: 40, right: 80, bottom: 20, left: 0}}
+            margin={{top: 22, right: 60, bottom: 22, left: 0}}
         >
             <CartesianGrid stroke="#606060" strokeDasharray="5 5"/>
             <Tooltip wrapperStyle={{color:"#808080", fill:"#808080"}} />

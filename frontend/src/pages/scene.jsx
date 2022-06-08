@@ -22,6 +22,7 @@ import '../components/buttonText.css'
 import '../components/lastBut.css'
 import '../components/centerSpinner.css'
 import { PsyTestChart } from '../components/Chart.jsx';
+import { ResponsiveContainer } from 'recharts';
 
 let characterID;
 
@@ -181,8 +182,10 @@ export class Scene extends React.Component {
           <>
               <Row className='rowWrapper'>
                 <Col sizeS={4} sizeM={3} sizeL={4} sizeXL={6} className='centerPic'>
-                <div style={backgroundImage} className = 'img-Wrapper'>
-                    {PsyTestChart(scene.n, scene.e)}
+                <div style={{display: 'flex',alignItems: 'center',justifyContent: 'center',}} className = 'img-Wrapper'>
+                    <ResponsiveContainer width="100%" height="100%">
+                      {PsyTestChart(scene.n, scene.e)}
+                    </ResponsiveContainer>
                   </div>
                 </Col>
                 <Col className = 'centerBut' type="rel" offsetS={0} offsetM={0} offsetL={1} offsetXL={0} sizeS={4} sizeM={3} sizeL={3} sizeXL={6}>
