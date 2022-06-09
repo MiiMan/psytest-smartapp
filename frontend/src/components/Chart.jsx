@@ -10,26 +10,19 @@ import {
     Scatter
 } from "recharts";
 
-const MyToolTip = () => {
-    return(
-        <div>
-            <li></li>
-        </div>
-    )
-}
 
-export const PsyTestChart = (n, e) => {
-    const data = [{ neuroticism: n, stability: e }];
+export const PsyTestChart = (n, e, size) => {
+    const data = [{ neuroticism: n, extravertism: e }];
     return (
         <ScatterChart
-            width={600}
-            height={400}
+            width={size}
+            height={size}
             data={data}
             fill="white"
-            margin={{top: 22, right: 60, bottom: 22, left: 0}}
+            margin={{top: 30, right: 25, bottom: 30, left: 20}}
         >
             <CartesianGrid stroke="#606060" strokeDasharray="5 5"/>
-            <Tooltip wrapperStyle={{color:"#808080", fill:"#808080"}} />
+            <Tooltip />
             <ReferenceLine x={12} stroke="#c5c5c5"
                            label={{value:"Стабильный", position:"insideTop", dy:-25}}
             />
@@ -39,9 +32,9 @@ export const PsyTestChart = (n, e) => {
 
             <XAxis
                 domain={[0,24]}
-                dataKey="neuroticism"
+                dataKey="extravertism"
                 type="number"
-                name="Нейротизм"
+                name="Экстраверсия"
                 axisLine={false}
                 tickCount={7}
                 label={{value:"Нестабильный", position:"bottom"}}
@@ -49,15 +42,15 @@ export const PsyTestChart = (n, e) => {
 
             <YAxis
                 domain={[0,24]}
-                dataKey="stability"
+                dataKey="neuroticism"
                 type="number"
-                name="Cтабильность"
+                name="Нейротизм"
                 axisLine={false}
                 tickCount={7}
                 label={{value:"Интроверт", position:"center", angle:-90, dx:-10}}
             />
 
-            <Scatter dataKey="n" fill="#21A038" shape={<Dot r={10}/>}/>
+            <Scatter dataKey="neuroticism" fill="#21A038" shape={<Dot r={10}/>}/>
         </ScatterChart>
     );
 }

@@ -22,7 +22,8 @@ import '../components/buttonText.css'
 import '../components/lastBut.css'
 import '../components/centerSpinner.css'
 import { PsyTestChart } from '../components/Chart.jsx';
-import { ResponsiveContainer } from 'recharts';
+import ProgressBar from "../components/ProgressBar";
+
 
 let characterID;
 
@@ -127,6 +128,7 @@ export class Scene extends React.Component {
     }
   }
 
+
   render() {
     
     const { scene, backgroundImage } = this.state;
@@ -155,56 +157,74 @@ export class Scene extends React.Component {
       } else if (scene.done) {
         return(
           <>
-              <Row className='rowWrapper'>
-                <Col sizeS={4} sizeM={3} sizeL={4} sizeXL={6} className='centerPic'>
-                  <div style={backgroundImage} className = 'img-Wrapper'>
-                  </div>
-                </Col>
-                <Col className = 'centerBut' type="rel" offsetS={0} offsetM={0} offsetL={1} offsetXL={0} sizeS={4} sizeM={3} sizeL={3} sizeXL={6}>
-                  <h1 className='centerText'> { scene.question.texts } </h1>
-                  {
-                    scene.question.options.map((item) => {
-                      return (
-                        <Row type="rel" sizeS={4} sizeM={6} sizeL={6} sizeXL={6}>
-                          <Button key={item.id} scaleOnInteraction = {false} scaleOnHover = {false} scaleOnPress = {false} style={{ marginBottom: '12px', width: '100%' }} stretch={true} size="s" onClick={ () => this.push({choice: item.text[0]}) }>
-                            <div className='butTextWrapper'> {item.text[0]} </div>
-                          </Button>
-                        </Row>
-                      );
-                    })
-                  }
-                  </Col>
-              </Row>
+            <Row className='rowWrapper'>
+              <Col className='centerPic'>
+                <img src={'/images/6.png'} width={400}/>
+              </Col>
+              <Col className = 'results' type="rel" sizeS={4} sizeM={3} sizeL={3} sizeXL={6}>
+                <h1 className='result-h'>{'Вы - Флегматик'}</h1>
+                <p className='result-p'>Для флегматика характерна высокая активность, которая доминирует над низкой реактивностью. Он малочувствителен и мало эмоционален. Внешние раздражители оказывают на него очень слабое воздействие; способен оставаться хладнокровным в непредвиденных ситуациях. Также у флегматиков замедленные и не выразительные движения, такая же речь, не богатая мимика. Внимание переключает с затруднениями, привычки и навыки перестраивает очень медленно, однако он обладает энергичностью и высокой работоспособностью. Большинство флегматиков — интроверты."</p>
+              </Col>
+            </Row>
             </>
         );
       } else {
-        return(
-          <>
-              <Row className='rowWrapper'>
-                <Col sizeS={4} sizeM={3} sizeL={4} sizeXL={6} className='centerPic'>
-                <div style={{display: 'flex',alignItems: 'center',justifyContent: 'center',}} className = 'img-Wrapper'>
-                    <ResponsiveContainer width="100%" height="100%">
-                      {PsyTestChart(scene.n, scene.e)}
-                    </ResponsiveContainer>
-                  </div>
-                </Col>
-                <Col className = 'centerBut' type="rel" offsetS={0} offsetM={0} offsetL={1} offsetXL={0} sizeS={4} sizeM={3} sizeL={3} sizeXL={6}>
-                  <h1 className='centerText'> { '[Вопрос: ' + scene.id + '/56] ' + scene.question.texts } </h1>
+        if (document.documentElement.clientWidth>=1.3*document.documentElement.clientHeight){
+          return (
+              <Row className="inline">
+                <Col className="inline-content" type="rel">
+                  <ProgressBar key={scene.id} completed={Math.round(scene.id/57*100)}/>
+                  <h1 className='centerText'> {scene.question.texts} </h1>
                   {
                     scene.question.options.map((item) => {
                       return (
-                        <Row type="rel" sizeS={4} sizeM={6} sizeL={6} sizeXL={6}>
-                          <Button key={item.id} scaleOnInteraction = {false} scaleOnHover = {false} scaleOnPress = {false} style={{ marginBottom: '12px', width: '100%' }} stretch={true} size="s" onClick={ () => this.push({choice: item.text[0]}) }>
-                            <div className='butTextWrapper'> {item.text[0]} </div>
-                          </Button>
-                        </Row>
-                      );
+                          <Row type="rel" sizeS={4} sizeM={6} sizeL={6} sizeXL={6}>
+                            <Button key={item.id}
+                                    scaleOnInteraction={false}
+                                    scaleOnHover={false}
+                                    scaleOnPress={false}
+                                    style={{marginBottom: '12px', width: '100%'}}
+                                    stretch={true} size="s"
+                                    onClick={() => this.push({choice: item.text[0]})}>
+                              <div className='butTextWrapper'> {item.text[0]} </div>
+                            </Button>
+                          </Row>);
                     })
                   }
-                  </Col>
+                </Col>
+                <Col className="chart" type="rel">
+                  {PsyTestChart(scene.l, scene.e, 400)}
+                </Col>
               </Row>
-            </>
-        );
+          );
+        } else {
+          return (
+              <div className="incol" >
+                <div className="incol-content">
+                  <ProgressBar key={scene.id} completed={Math.round(scene.id/57*100)}/>
+                  <h1 className='centerText'> {scene.question.texts } </h1>
+                  {
+                    scene.question.options.map((item) => {
+                      return (
+                          <Row type="rel" sizeS={4} sizeM={6} sizeL={6} sizeXL={6}>
+                            <Button key={item.id}
+                                    scaleOnInteraction = {false}
+                                    scaleOnHover = {false} scaleOnPress = {false}
+                                    style={{ marginBottom: '12px', width: '100%' }}
+                                    stretch={true} size="s"
+                                    onClick={ () => this.push({choice: item.text[0]}) }>
+                              <div className='butTextWrapper'> {item.text[0]} </div>
+                            </Button>
+                          </Row>);
+                    })
+                  }
+                </div>
+                <div className="incol-chart">
+                  {PsyTestChart(scene.l, scene.e, 300)}
+                </div>
+              </div>
+          );
+        }
       }
     } else {
       return (<Spinner className='spinnerWrapper'/>);
