@@ -114,8 +114,8 @@ function* script(r: SberRequest) {
     if (r.type === 'SERVER_ACTION'){
       console.log(r.act?.action_id)
       if (r.act?.action_id == 'click'){
-
-        if (r.act.data != -1) updateState(r.act.data);
+        console.log(r.act.data);
+        if (r.act.data != 10) updateState(r.act.data);
         else {
           rsp.msg = 'Всего вам доброго!';
           rsp.msgJ = 'Еще увидимся. Пока!';
